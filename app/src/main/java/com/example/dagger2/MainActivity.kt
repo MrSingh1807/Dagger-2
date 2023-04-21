@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val appComponent = (application as UserApplication).appComponent
-        userRegistrationComponents = DaggerUserRegistrationComponents.factory().create(3, appComponent)
+        userRegistrationComponents = appComponent.getUserRegistrationComponentFactory().create(3)
         userRegistrationComponents.inject(this)
 
         userRegistrationService.registerUser("Mr Singh", "1111")
