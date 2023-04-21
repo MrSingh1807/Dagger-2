@@ -20,7 +20,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val appComponent = (application as UserApplication).appComponent
-        userRegistrationComponents = appComponent.getUserRegistrationComponentFactory().create(3)
+        userRegistrationComponents = appComponent.getUserRegistrationComponentBuilders()
+            .retryCount(3).build()
         userRegistrationComponents.inject(this)
 
         userRegistrationService.registerUser("Mr Singh", "1111")

@@ -3,6 +3,7 @@ package com.example.dagger2
 import com.example.dagger2.Modules.NotificationServiceModule
 import com.example.dagger2.Modules.UserRepositoryModule
 import com.example.dagger2.component.AppComponent
+import com.example.dagger2.component.DaggerAppComponent.Builder
 import com.example.dagger2.scopes.ActivityScope
 import dagger.BindsInstance
 import dagger.Component
@@ -14,8 +15,11 @@ import dagger.Subcomponent
 interface UserRegistrationComponents {
    fun inject(mainActivity: MainActivity)
 
-   @Subcomponent.Factory
-   interface Factory {
-      fun create(@BindsInstance retryCount : Int) : UserRegistrationComponents
+   @Subcomponent.Builder
+   interface Builder {
+
+      fun build() : UserRegistrationComponents
+      fun retryCount(@BindsInstance retryCount : Int ): Builder
+
    }
 }

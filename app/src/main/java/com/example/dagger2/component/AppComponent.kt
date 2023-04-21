@@ -11,8 +11,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [AnalyticsModule::class])
 interface AppComponent {
-
-    fun getUserRegistrationComponentFactory() : UserRegistrationComponents.Factory
-     /* You can directly return the Component when factory is not present
-     * */
+    fun getUserRegistrationComponentBuilders() : UserRegistrationComponents.Builder
 }
