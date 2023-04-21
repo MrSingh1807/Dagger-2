@@ -1,13 +1,17 @@
 package com.example.dagger2
 
 import android.app.Application
+import com.example.dagger2.Modules.AnalyticsModule
+import com.example.dagger2.component.AppComponent
+import com.example.dagger2.component.DaggerAppComponent
 
 class UserApplication: Application() {
-    lateinit var userRegistrationComponents: UserRegistrationComponents
+
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        userRegistrationComponents = DaggerUserRegistrationComponents.factory().create(3)
+        appComponent = DaggerAppComponent.builder().build()
     }
 }

@@ -4,6 +4,7 @@ import com.example.dagger2.CustomQualifiers.MessageQualifier
 import com.example.dagger2.EmailService
 import com.example.dagger2.MessageService
 import com.example.dagger2.NotificationService
+import com.example.dagger2.scopes.ActivityScope
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,7 @@ import javax.inject.Named
 @Module
 class NotificationServiceModule {
 
+    @ActivityScope
     @MessageQualifier
     @Provides
     fun getMessageService(retryCount: Int): NotificationService {

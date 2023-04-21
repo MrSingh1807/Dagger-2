@@ -9,6 +9,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding :ActivityMainBinding
 
+    lateinit var userRegistrationComponents: UserRegistrationComponents
+
     @Inject
     lateinit var userRegistrationService: UserRegistrationService
 
@@ -17,8 +19,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val component = (application as UserApplication).userRegistrationComponents
-        component.inject(this)
+        val appComponent = (application as UserApplication).appComponent
+        userRegistrationComponents = DaggerUserRegistrationComponents.factory().create(3, appComponent)
+        userRegistrationComponents.inject(this)
+
         userRegistrationService.registerUser("Mr Singh", "1111")
 
     }
