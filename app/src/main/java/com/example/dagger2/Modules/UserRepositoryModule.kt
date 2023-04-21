@@ -6,21 +6,18 @@ import com.example.dagger2.SQLRepository
 import com.example.dagger2.UserRepository
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
 abstract class UserRepositoryModule {
 
-   companion object {
-       @FirebaseQualifier
-       @Provides
-       fun getFirebaseRepository(): UserRepository {
-           return FirebaseRepository()
-       }
-   }
+    @FirebaseQualifier
+    @Binds
+    abstract fun getFirebaseRepository(firebaseRepository: FirebaseRepository): UserRepository
 
     @Named("SQL")
+    @Singleton
     @Binds
-    abstract fun getSQLRepository(sqlRepository: SQLRepository) : UserRepository
+    abstract fun getSQLRepository(sqlRepository: SQLRepository): UserRepository
 }

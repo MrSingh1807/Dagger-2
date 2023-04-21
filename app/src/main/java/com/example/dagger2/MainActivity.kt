@@ -7,18 +7,17 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var binding :ActivityMainBinding
+    private lateinit var binding :ActivityMainBinding
 
     @Inject
     lateinit var userRegistrationService: UserRegistrationService
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val component = DaggerUserRegistrationComponents.factory().create(3)
-        component.inject(this)
-
+        val component = (application as UserApplication).userRegistrationComponents
         userRegistrationService.registerUser("Mr Singh", "1111")
 
     }
