@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val component = (application as UserApplication).userRegistrationComponents
+        component.inject(this)
         userRegistrationService.registerUser("Mr Singh", "1111")
 
     }
