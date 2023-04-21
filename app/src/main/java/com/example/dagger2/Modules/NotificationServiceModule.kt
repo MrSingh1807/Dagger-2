@@ -10,18 +10,17 @@ import dagger.Provides
 import javax.inject.Named
 
 @Module
-abstract class NotificationServiceModule {
+class NotificationServiceModule {
 
-
-    companion object{
-        @MessageQualifier
-        @Provides
-        fun getMessageService(): NotificationService {
-            return MessageService()
-        }
+    @MessageQualifier
+    @Provides
+    fun getMessageService(retryCount: Int): NotificationService {
+        return MessageService(retryCount = retryCount)
     }
 
     @Named("Email")
-    @Binds
-    abstract fun getEmailService(emailService: EmailService): NotificationService
+    @Provides
+    fun getEmailService(): NotificationService {
+        return EmailService()
+    }
 }

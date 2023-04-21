@@ -9,7 +9,7 @@ interface UserRepository {
 }
 class SQLRepository @Inject constructor() : UserRepository{
     override fun saveUser(name: String, password: String) {
-        Log.d(TAG," User Saved in SQL")
+        Log.d(TAG,"User Saved in SQL")
     }
 }
 
