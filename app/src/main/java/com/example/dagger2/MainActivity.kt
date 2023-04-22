@@ -2,29 +2,35 @@ package com.example.dagger2
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.dagger2.databinding.ActivityMainBinding
+import com.example.dagger2.viewmodels.MainViewModel
+import com.example.dagger2.viewmodels.MainViewModelFactory
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding :ActivityMainBinding
+    private lateinit var binding : ActivityMainBinding
 
-    lateinit var userRegistrationComponents: UserRegistrationComponents
+    lateinit var mainViewModel: MainViewModel
 
     @Inject
-    lateinit var userRegistrationService: UserRegistrationService
+    lateinit var mainViewModelFactory: MainViewModelFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val appComponent = (application as UserApplication).appComponent
-        userRegistrationComponents = appComponent.getUserRegistrationComponentBuilders()
-            .retryCount(3).build()
-        userRegistrationComponents.inject(this)
+        val applicationComponent = (application as FakeStoreApplication).applicationComponent
+        applicationComponent.inject(this)
 
-        userRegistrationService.registerUser("Mr Singh", "1111")
+        mainViewModel = ViewModelProvider(this, mainViewModelFactory)[MainViewModel::class.java]
 
+        mainViewModel.productsRemoteData.observe(this){
+            binding.products.text = it.joinToString { product -> product.title + "\n\n" }
+
+            mainViewModel.offlineSaveData(it)
+        }
     }
 }
