@@ -6,11 +6,14 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.dagger2.models.Product
 import com.example.dagger2.repositories.ProductRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor (val repository: ProductRepository) : ViewModel() {
+@HiltViewModel
+class MainViewModel @Inject constructor (
+    private val repository: ProductRepository) : ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
